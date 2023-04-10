@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head> 
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>QUIZ!!!!!</title>
+   <link rel="icon" type="image/x-icon" href="">
+   <style>
+      :root{
+         --gray: #dbd7d5;
+         --black: #1f1e1d;
+      }
+
+      #form{color:var(--black);}
+
+      h1{font-weight:normal;}
+      
+      fieldset,.resultBox{
+         display:none;
+         width:max-content;
+         padding:2rem;
+         border:1px solid var(--gray);
+      }
+      button{
+         padding:1rem;
+         background-color:white;
+         border-radius:0;
+         color:inherit;
+         border:1px solid var(--black);
+      }
+      button:hover{
+         background-color: var(--black);
+         color:var(--gray)
+      }
+   </style>
+   <script async>
+      const resultPoints = {
+         //array of variables for all possible results
+         'kind':0,
+         'cool':0,
+         'mean':0
+      }
+      var questionNumber = 1;//which question is being shown
+      function count(name){
+         //adds a point to the result variable [name]
+         resultPoints[name]++;
+      }
+      function calculateResults(x) {
+         //calculates the highest points and shows the corresponding result
+         //Favors results earlier in the list in the case of ties
+         const maxPoints = Math.max(...Object.values(resultPoints));
+         for (const key of Object.keys(resultPoints)){
+            console.log(key, resultPoints[key])
+            if (resultPoints[key] == maxPoints) {
+               show(key);
+               break;
+            }
+         }
+      }
+      function showNextQuestion() {
+         //hides last question,shows next one. if last question shows the result instead.
+         hide("Q" + questionNumber);
+         var howManyQs = document.getElementsByTagName("fieldset").length;// # of questions (fieldsets) in the document
+         if (questionNumber < howManyQs) {
+            questionNumber++;
+            show("Q" + questionNumber);
+         } else {
+            calculateResults();
+         }
+      }
+      function show(ID) {
+         //shows whatever element it is given
+         document.getElementById(ID).style.display = "block";
+      }
+      function hide(ID) {
+         //hides whatever element it is given
+         document.getElementById(ID).style.display = "none";
+      }
+   </script>
+</head>
+
+<body>
+   <div id="form">
+      <h1>Example quiz: pick an animals!</h1>
+      <fieldset id="Q1" style="display:block;">
+         <legend>pick a cat</legend>
+         <button  onclick="count('kind'), showNextQuestion()">Whimsy</button>
+         <button  onclick="count('mean'), showNextQuestion()">Kenneth</button>
+         <button  onclick="count('kind'), showNextQuestion()">Jellybean</button>
+         <button  onclick="count('cool'), showNextQuestion()">Jackpot</button>
+      </fieldset>
+      <fieldset id="Q2">
+         <legend>pick a animal</legend>
+         <button  onclick="count('cool'), showNextQuestion()">Kiri</button>
+         <button  onclick="count('cool'), showNextQuestion()">Skittles</button>
+         <button  onclick="count('mean'), showNextQuestion()">Lulu</button>
+         <button  onclick="count('kind'), showNextQuestion()">Cass</button>
+      </fieldset>
+      <fieldset id="Q3">
+         <legend>pick another cat</legend>
+         <button  onclick="count('kind'), showNextQuestion()">Mo</button>
+         <button  onclick="count('cool'), showNextQuestion()">Roni</button>
+         <button  onclick="count('mean'), showNextQuestion()">Jax</button>
+         <button  onclick="count('kind'), showNextQuestion()">Mochi</button>
+      </fieldset>
+   </div><!--form-->
+   <div class="resultBox" id="cool">
+      you are cool :)
+   </div>
+   <div class="resultBox" id="kind">
+      you are kind :)
+   </div>
+   <div class="resultBox" id="mean">
+      you are mean :)
+   </div>
+</body>
+</html>
