@@ -1,7 +1,7 @@
 # quiz-template
 for making quizzes using html NO PHP!!!
 
-live preview: https://dashweb.neocities.org/examplequiz
+live preview: https://dashweb.neocities.org/quizzes
 
 tutorial video: https://youtu.be/yCyIsLKmVGk
 
